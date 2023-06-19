@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DarkNote - Modern Notepad</title>
+    <style>
+        body {
+            background-color: #1f1f1f;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .header {
+            padding: 20px;
+            background-color: #333;
+        }
+
+        .content {
+            flex-grow: 1;
+            display: flex;
+            align-items: stretch;
+        }
+
+        .note {
+            flex-grow: 1;
+            padding: 100px;
+            background-color: #a19797;
+            white-space: pre-wrap;
+        }
+
+        .footer {
+            padding: 20px;
+            background-color: #333;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        input[type="text"],
+        input[type="file"],
+        button {
+            margin-right: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                height: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <center><h1>DarkNote <p><h4>Made by: HttpAnimations</h4></p></h1></center>
+        </div>
+        <div class="content">
+            <textarea id="note" class="note"></textarea>
+        </div>
+        <div class="footer">
+       <center><button id="saveButton">Save</button></center>
+        </div>
+    </div>
+
+    <script>
+        const saveButton = document.getElementById("saveButton");
+        saveButton.addEventListener("click", saveNote);
+
+        function saveNote() {
+            const filename = document.getElementById("filename").value;
+            const extension = document.getElementById("extension").value;
+            const note = document.getElementById("note").value;
+            const fileContent = filename + "." + extension + "\n" + note;
+            const blob = new Blob([fileContent], { type: "text/plain" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = filename + "." + extension;
+            link.click();
+        }
+    </script>
+</body>
+</html>
